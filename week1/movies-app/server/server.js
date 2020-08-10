@@ -19,17 +19,17 @@ mongoose.connect('mongodb://localhost:27017/moviesdb',
 )
 
 // Routes
-app.use('./movies', require('./routes/movieRouter.js'))
-app.use('./tvshows', require('./routes/tvshowRouter.js'))
+app.use('/movies', require('./movieRouter.js'))
+// app.use('./tvshows', require('./routes/tvshowRouter.js'))
 
 // error handler
 app.use((err, req, res, next) => {
     console.log(err)
-    return res.sent({errMsg: err.message})
+    return res.send({errMsg: err.message})
 })
 
 // server listen
-app.listen(9001, () => {
-    console.log('The server is running on port 9001')
+app.listen(9009, () => {
+    console.log('The server is running on port 9009')
 
 })
