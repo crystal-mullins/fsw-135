@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const expressJwt = require('express-jwt')
 
-process.env.SECRET
+// process.env.SECRET
 
 app.use(express.json())
 app.use(morgan('dev'))
@@ -23,7 +23,7 @@ mongoose.connect(
 )
 // app.use('/login', require('./routes/authRouter.js'))
 app.use('/auth', require('./routes/authRouter.js'))
-app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] }))
+app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['HS256'] }))
 app.use('/api/todo', require('./routes/todoRouter.js'))
 
 

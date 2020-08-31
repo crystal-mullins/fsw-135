@@ -15,6 +15,8 @@ todoRouter.get("/", (req, res, next) => {
 
 // Add new Todo
 todoRouter.post("/", (req, res, next) => {
+    console.log(req.header)
+    console.log(req.user)
     req.body.user = req.user._id
   const newTodo = new Todo(req.body)
   newTodo.save((err, savedTodo) => {
