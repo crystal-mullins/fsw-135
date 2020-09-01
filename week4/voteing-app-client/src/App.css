@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+.auth-container{
+  display: grid;
+  grid-template-columns: 50%, 50%;
+  height: 25%, 25%;
+  background-color: lavender;
+  border: solid purple;
+  
+}
+.navbar{
+  display: grid;
+  grid-template-rows: 50% 50%;
+  background-color:aliceblue;
+  border: solid purple;
+}
+
+.profile{
+  display: grid;
+  grid-template-rows: 25% 25% 25%;
+  height: 25%;
+  background-color: lavender;
+  border: solid purple;
+
+}
+.public{
+  display: grid;
+  grid-template-rows: 25% 25% 25%;
+  height: 25%;
+  background-color: lavender;
+  border: solid purple;
+
+}
+.todo{
+  display: grid;
+  grid-template-rows: 25% 25% 25%;
+  height: 25%;
+  background-color: lavender;
+  border: solid purple;
+
+}
+
+.login{
+  /* display: grid;
+  grid-template-rows: 25% 25% ; */
+  height: 30%;
+  background-color: lavender;
+  border: solid purple;
+}
