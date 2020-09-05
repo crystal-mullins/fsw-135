@@ -15,13 +15,12 @@ const todoSchema = new Schema({
   },
   imgUrl: {
     type: String,
-    // required: true
+    required: true
   },
-  user:{
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true
-
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true
   }
 })
 
