@@ -8,10 +8,12 @@ authRouter.post("/signup", (req, res, next) => {
     console.log(req.body)
     User.findOne({ username: req.body.username.toLowerCase()}, (err, user) => {
         if(err){
+            console.log("11")
             res.status(500)
             return next(err)
         }
         if(user){
+            console.log("15")
             res.status(403)
             return next(new Error("That Username is taken"))
         }
@@ -23,28 +25,39 @@ authRouter.post("/signup", (req, res, next) => {
             }
 
             //  payload    secret
-            const token = jwt.sign(savedUser.toObject(), process.env.SECRET)
+            const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET)
             return res.status(201).send({ token, user: savedUser })
         })
     })
 })
     // login
     authRouter.post("/login", (req, res, next) => {
+        console.log(req.body, "userRouter 35" )
         User.findOne({ username: req.body.username }, (err, user) => {
                 if(err){
                 res.status(500)
                 return next(err)
             }
             if(!user){
-                res.status(401)
-                return next(new Error("username and password do not match our files"))
+                res.status(403)
+                return next(new Error("Username and password do not match our files"))
             }
-            if(req.body.password !== user.password){
-                res.status(401)
-                return next(new Error("username and password do not match our files"))
-            }
-            const token = jwt.sign(user.toObject(), process.env.SECRET)
-            return res.status(200).send({ token, user })
+
+            user.checkPassword(req.body.password, (err, isMatch) => {
+                if(err){
+                    res.status(403)
+                    return next(new Error("Username or Password are incorret"))
+
+                }
+                if(!isMatch){
+                    res.status(403)
+                    MediaElementAudioSourceNode(new Error("that is incorrect"))
+                }
+            } )
+
+
+            const token = jwt.sign(user.withoutPassword(), process.env.SECRET)
+            return res.status(200).send({ token, user: user.withoutPassword })
             
         })
         

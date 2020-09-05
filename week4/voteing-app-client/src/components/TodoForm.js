@@ -1,51 +1,51 @@
 import React, { useState } from 'react'
 
-const initInputs ={
-    title:"",
-    description:"",
-    imgUrl:""
+const initInputs = {
+  title: "",
+  description: "",
+  imgUrl: ""
 }
 
-export default function TodoForm(){
-    const[inputs, setInputs] = useState(initInputs)
+export default function TodoForm(props){
+  const [inputs, setInputs] = useState(initInputs)
+  const { addTodo } = props
 
-   function handleChange(e){
-       const {name, value} = e.target
-       setInputs(prevInputs => ({
-           ...prevInputs,
-           [name]: value
-       }))
-   }
-   function handleSubmit(e){
+  function handleChange(e){
+    const {name, value} = e.target
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      [name]: value
+    }))
+  }
+
+  function handleSubmit(e){
     e.preventDefault()
-    // add todo
-}
+    addTodo(inputs)
+    setInputs(initInputs)
+  }
 
-const {title, description, imgUrl} = inputs
-    return(
-        <form onSubmit={handleSubmit}>
-            <input
-            type="text"
-            value={title}
-            name="title"
-            onChange={handleChange}
-            placeholder="Title"/>
-
-            <input
-            type="text"
-            value={description}
-            name="description"
-            onChange={handleChange}
-            placeholder="description"/>
-
-            <input
-            type="text"
-            value={imgUrl}
-            name="imgUrl"
-            onChange={handleChange}
-            placeholder="Image Url"/>
-
-            <button>Add Product</button>
-        </form>
-    )
+  const { title, description, imgUrl } = inputs
+  return (
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        name="title" 
+        value={title} 
+        onChange={handleChange} 
+        placeholder="Title"/>
+      <input 
+        type="text" 
+        name="description" 
+        value={description} 
+        onChange={handleChange} 
+        placeholder="Description"/>
+      <input 
+        type="text" 
+        name="imgUrl" 
+        value={imgUrl} 
+        onChange={handleChange} 
+        placeholder="Image Url"/>
+      <button>Add Todo</button>
+    </form>
+  )
 }
