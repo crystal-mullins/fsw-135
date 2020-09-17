@@ -134,11 +134,23 @@
 }
 
 .todo-list {
+  border: 1px solid purple;
+  padding: 20px;
+  border-radius: 5px;
+  background-color:lavender;
 
+  display: flex;
+  flex-direction: column;
 }
 
 .todo {
+  border: 1px solid purple;
+  padding: 20px;
+  border-radius: 5px;
+  background-color:lavender;
 
+  display: flex;
+  flex-direction: column;
 }
 
 .public {

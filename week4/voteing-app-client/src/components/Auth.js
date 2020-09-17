@@ -29,13 +29,13 @@ export default function Auth(){
   }
 
   function toggleForm(){
-    setToggle(prev => !prev)
-    resetAuthErr()
+      setToggle(prev => !prev)
+    //   resetAuthErr()
   }
 
   return (
     <div className="auth-container">
-      <h1>Todo App</h1>
+      <h1>Stalk Market</h1>
       { !toggle ?
         <>
           <AuthForm 
@@ -56,7 +56,7 @@ export default function Auth(){
             btnText="Login"
             errMsg={errMsg}
           />
-          <p onClick={toggleForm}>Not a member?</p>
+          <p onClick={() => setToggle(prev => !prev)}>Not a member?</p>
         </>
       }
     </div>

@@ -16,9 +16,10 @@ export default function Profile(){
   return (
     <div className="profile">
       <h1>Welcome @{username}!</h1>
-      <h3>Add A Todo</h3>
+      <h1>Stalk Market</h1>
+      <h3>Post Items here.</h3>
       <TodoForm addTodo={addTodo}/>
-      <h3>Your Todos</h3>
+      <h3>Your Product List</h3>
       <TodoList todos={todos}/>
     </div>
   )

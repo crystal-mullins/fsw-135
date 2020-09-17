@@ -13,13 +13,13 @@ userAxios.interceptors.request.use(config => {
 
 export default function UserProvider(props){
   const initState = { 
-    user: JSON.parse(localStorage.getItem("user")) || {}, 
-    token: localStorage.getItem("token") || "", 
-    todos: [],
-    errMsg: ""
+    user: "", 
+    token: "", 
+    todos: [] 
   }
 
   const [userState, setUserState] = useState(initState)
+  const [allState, setAllState] = useState(initState)
 
   function signup(credentials){
     axios.post("/auth/signup", credentials)
@@ -33,23 +33,31 @@ export default function UserProvider(props){
           token
         }))
       })
-      .catch(err => handleAuthErr(err.response.data.errMsg))
+      .catch(err => console.log(err.response.data.errMsg))
   }
 
   function login(credentials){
+      
     axios.post("/auth/login", credentials)
       .then(res => {
         const { user, token } = res.data
+       
         localStorage.setItem("token", token)
         localStorage.setItem("user", JSON.stringify(user))
         getUserTodos()
+        AllTodos()
         setUserState(prevUserState => ({
           ...prevUserState,
           user,
           token
         }))
+        setAllState(prevAllState => ({
+          ...prevAllState,
+          user,
+          token
+        }))
       })
-      .catch(err => handleAuthErr(err.response.data.errMsg))
+      .catch(err => console.log(err.response.data.errMsg))
   }
 
   function logout(){
@@ -61,25 +69,23 @@ export default function UserProvider(props){
       todos: []
     })
   }
-
-  function handleAuthErr(errMsg){
-    setUserState(prevState => ({
-      ...prevState,
-      errMsg
-    }))
-  }
-
-  function resetAuthErr(){
-    setUserState(prevState => ({
-      ...prevState,
-      errMsg: ""
-    }))
-  }
+  
 
   function getUserTodos(){
     userAxios.get("/api/todo/user")
       .then(res => {
         setUserState(prevState => ({
+          ...prevState,
+          todos: res.data
+        }))
+      })
+      .catch(err => console.log(err.response.data.errMsg))
+  }
+
+  function AllTodos(){
+    userAxios.get("/api/todo")
+      .then(res => {
+        setAllState(prevState => ({
           ...prevState,
           todos: res.data
         }))
@@ -106,7 +112,7 @@ export default function UserProvider(props){
         login,
         logout,
         addTodo,
-        resetAuthErr
+        allState
       }}>
       { props.children }
     </UserContext.Provider>
